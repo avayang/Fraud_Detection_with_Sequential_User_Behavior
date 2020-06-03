@@ -19,12 +19,25 @@ In the previous fraud detection analysis, people usually focus on the users’ b
 
 In this project, we mainly got two datasets. One is the original dataset which was also used by the two previous groups. In this dataset, there are 200000 records of user behaviors sequences before the lending application. We treated people in this dataset as higher-income groups. The fraud occurrence frequency is very low. The other dataset was newly provided by Moffy which got 30000 records of user behaviors sequences. The fraud occurrence frequency is a little higher in the new dataset, and we considered this group as the lower-income. Both the two datasets have the same types of data which showed in the following table.
 
-<p align="center">
-<img src="Images/Picture1.png" width="700" hight=”350“>
-</p>
-<p align="center">
-<img src="Images/Picture2.png" width="700" hight=”350“>
-</p>
+### 1. Basic Information Features(Non-Sequantial Features) 
+
+Features | Description 
+---|---
+`label` | Target, whether the application defrauds
+`overdue` | How many days overdue
+`new_client`| Whether the applicant is new
+`over_time` | The submission time of application
+
+### 2. Page-View Behavior Features(Sequential Features)
+
+Features | Description 
+---|---
+`pname` | The category of page belongs to
+`pstime` | The starting view time on this page 
+`petime`| The ending view time on this page
+`pid` | The process id
+`sid` | The session id
+
 
 ## Data Processing
 
