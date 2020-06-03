@@ -21,12 +21,12 @@ In this project, we mainly got two datasets. One is the original dataset which w
 
 ### 1. Basic Information Features(Non-Sequantial Features) 
 
-Features | Description 
----|---
-`label` | Target, whether the application defrauds
-`overdue` | How many days overdue
-`new_client`| Whether the applicant is new
-`over_time` | The submission time of application
+Keys | ValueDescription | ValueType 
+---|---|---
+`label` | Whether this application defaults | int (0-no / 1-yes) 
+`overdue` | If application defaults, how many days overdued | int
+`new_client` | Whether this user has previous `successful` application | int (1-yes / 0-no) 
+`order_time`| Application time | foat from Unix time(ms)
 
 ### 2. Page-View Behavior Features(Sequential Features)
 
