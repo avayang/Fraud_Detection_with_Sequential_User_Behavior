@@ -46,9 +46,9 @@ Keys | ValueDescription | ValueType
 
 To feed the data into Deep Learning models, we made some preprocessing.
 
-1. Basic information features (Non-sequential features): For the Basic information features, we think the last group did a good job on it. Thus, we kept the data processing made by them and got each sample as a dimension binary vector.
+**1. Basic information features (Non-sequential features):** For the Basic information features, we think the last group did a good job on it. Thus, we kept the data processing made by them and got each sample as a dimension binary vector.
 
-2. Page view behavior features (Sequential features)
+**2. Page view behavior features (Sequential features)：**
 - For the pid and sid, we kept the treatment method from the last group and recorded if the process id and session id changed from the last page.
 - For the pstime and petime, we also kept the method applied by the last group. We subtracted from page end time to page start time to get page stay time and subtracted from current page start time to last page end time to get the lag time between each page.
 - For the pname, there are 12 different categories of page. Last group encoded them in two ways, label encoding and one hot encoding. We add one more way which uses word2vec encoding. Thus, we totally used three methods.
