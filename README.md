@@ -3,6 +3,7 @@
 Online-lending fraud detection with customers' sequential behavioral data (End-to-end ML and NLP project).
 
 
+
 ## Project Summary
 
 The project goal is to utilize customer’s behavior sequences before submission of the loan application to make fraud detection in the online lending business. We tried different kinds of machine learning classification models and deep learning methods including the state-of-art transformer model with attention mechanism to extract features and make the best prediction ability, measured by AUC and KS statistics.
@@ -11,9 +12,11 @@ Based on the data exploration results of some baseline machine leaning models su
 
 In order to dive deeper, we focused on both feature extraction and model optimization to improve our result accuracy. For better feature extraction, we trained our own skip-gram model on a web page sequence to get the word2vec embedding layer and fed it to the LSTM layers. For the model improvement part, although we tried several optimizations on the LSTM models, the limitation of LSTM maximum timestamps made it not perform well, since it can not learn the relations between sequences when padding size is larger than 20. Thus, we further constructed a new architecture based on the idea of “The state-of-art Transformer Model”, which introduced a multi-head attention mechanism in order to detect the interactions between web page sequence feature and page stay time feature. In this case, there is no more timesteps limitation in our new model, and this variant transformer model is much more flexible in future exploration.
 
+
 ## Background
 
 In the previous fraud detection analysis, people usually focus on the users’ basic information like gender, age, income, family background, and their application date. Although these kinds of information could be treated as features and helped to build machine learning models to detect fraud, there was still lots of information lost during the process. One kind of information it lost was page view behavior. By the development of the Internet, now more and more lending is happening online. As a result, we can record the page view behavior for each customer. Thanks to the development of Deep Learning, we can make the page view behavior into sequence feature sets and fit them into different models.
+
 
 ## Data Description
 
@@ -58,7 +61,9 @@ Model Performance on High-Income Dataset | AUC | KS Score
 `Model 4 using timesteps with 60` | 0.59 | 0.1487
 `Model 4 using timesteps with 20`| 0.58 | 0.1942
 
+
 ## Feature Extraction and Exploration
+
 ### Word2vec Embedding
 We experimented feature extraction by RNN(LSTM), where we used three different inputs ：
 - Sequence embedding 1: Using one-hot encoded page type, discretized (binned) page stay time and page lag time, and change of pid and sid. In this way, the input shape is (batch size, 60, 17);
@@ -128,6 +133,7 @@ Model Performance on Both Datasets | AUC | KS Score
 `Transformer Model on Low-Income Data`| 0.60 | 0.163
 
 The performance of the Transformer model can be seen in Table 5. The result is not as expected that we think this is due to the lack of feature dimension. Only the sequence data itself may not include enough distribution information.
+
 
 ## Conclusions and Future Extensions
 
