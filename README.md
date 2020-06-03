@@ -30,13 +30,13 @@ Keys | ValueDescription | ValueType
 
 ### 2. Page-View Behavior Features(Sequential Features)
 
-Features | Description 
----|---
-`pname` | The category of page belongs to
-`pstime` | The starting view time on this page 
-`petime`| The ending view time on this page
-`pid` | The process id
-`sid` | The session id
+Keys | ValueDescription | ValueType 
+---|---|---
+`pname` | Page name | String
+`pstime`| Time when page viewing starts | int from Unix time(ms)
+`petime`| Time when page viewing ends | int from Unix time(ms)
+`pid` | Whether this application defaults | String
+`sid` | Session ID | A string of int ID
 
 
 ## Data Processing
@@ -53,9 +53,10 @@ To feed the data into Deep Learning models, we made some preprocessing.
 - As a result, we totally got two main page view behavior sequences data. One is with 60 timesteps, while the other is with 20 timesteps. And we encoded categories of pages into three different length variables. One is using label encoding which only got one column. The second one is using one-hot encoding which got 12 columns. The final one which will discuss one detail in the following used word2vec encoding. We made it 50 columns.
 - To determine the effect of length for timesteps, we tested the original dataset on the best model provided by the last group. The result was shown in the following tables. Both the AUC and KS score of the model with 20 timesteps were not too much worse than the values of the model with 60 timesteps. These results could be made by the limitation of LSTM. Although there is an improvement in learning long term items in the LSTM model compared with RNN model, LSTM always can not learn items with timesteps more than 20. When the length of timesteps is longer than 20, the LSTM model will become something like a Markov chain and only memorize the last 20 timesteps. However, in the last 20 timesteps of 60 timesteps input, there are many ‘-1’s which could make errors for the result. Thus, the KS score for the model with 20 timesteps input is even better than the model with 60 timesteps input.
 
-<p align="center">
-<img src="Images/Picture3.png" width="700" hight=”350“>
-</p>
+Model Performance on High-Income Dataset | AUC | KS Score
+---|---|---
+`Model 4 using timesteps with 60` | 0.59 | 0.1487
+`Model 4 using timesteps with 20`| 0.58 | 0.1942
 
 ## Feature Extraction and Exploration
 ### Word2vec Embedding
@@ -77,9 +78,10 @@ Further notice: The word2vec model trained by Google set this embedding size as 
 
 The performance after replacing the “sequence embedding 1” that the last group did with our skip-gram embedding becomes slightly worse (see table below). But the sequence embedding 1 that the last group did use not only page type but also page stay time, lag time, and so on, while the word2vec embedding only uses page type. So, we still think word2vec embedding is a powerful embedding method, but we need to find some ways to concatenate the page type and other variables to extract more information. Also, further work can include tuning the hyperparameters of the word2vec model.
 
-<p align="center">
-<img src="Images/Picture5.png" width="700" hight=”350“>
-</p>
+Model Performance on Low-Income Dataset | AUC | KS Score
+---|---|---
+`Model 4 using sequential embedding 1` | 0.61 | 0.206
+`Model 4 using Word2vec embedding`| 0.60 | 0.177
 
 The reason we compare the performance of model 4 instead of other model architectures is that model 4 is the best architecture we found at present.
 
@@ -120,9 +122,10 @@ Multi-head attention is utilized because it allows the model to jointly attend t
 
 In our case, V(value) and K(key) receives the encoder output of the customer’s web page sequences, and Q(query) receives the output of page stay time sequence from the decoder’s first point wise feed forward network sublayer, the attention weights represent the importance given to the decoder's input based on the encoder's output. In other words, the decoder predicts whether the customer defaults by looking at the encoder output of the “web page sequence” behavior and self-attending to its own output of the “page stay time” behavior.
 
-<p align="center">
-<img src="Images/Picture8.png" width="700" hight=”350“>
-</p>
+Model Performance on Both Datasets | AUC | KS Score
+---|---|---
+`Transformer Model on High-Income Data` | 0.56 | 0.107
+`Transformer Model on Low-Income Data`| 0.60 | 0.163
 
 The performance of the Transformer model can be seen in Table 5. The result is not as expected that we think this is due to the lack of feature dimension. Only the sequence data itself may not include enough distribution information.
 
