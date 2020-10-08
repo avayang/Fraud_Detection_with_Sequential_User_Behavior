@@ -113,7 +113,7 @@ The point wise feed forward network contains two fully-connected layers with a R
 
 After learning with N encoder layers, the output for each web page behavior in the sequence is then generated and ready to enter the decoder as the input.
 
-#### 2. Encoder
+#### 2. Decoder
 
 The decoder attends on the encoder's output and its own input (Page stay time) to predict whether the customer defaults. There are N decoder layers in our transformer model in total, each one consists of two point wise feed forward networks and a multi-head attention layer, and every sublayer has a residual connection around it followed by a layer normalization.
 
