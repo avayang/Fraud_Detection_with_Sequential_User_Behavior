@@ -90,7 +90,7 @@ Model Performance on Low-Income Dataset | AUC | KS Score
 
 The reason we compare the performance of model 4 instead of other model architectures is that model 4 is the best architecture we found at present.
 
-### Transformer model with multi-head attention mechanism
+### Customized Transformer model with multi-head attention mechanism
 
 In order to explore the interactions between “web page sequence” and “page stay time” features, which are both time-series features and crucial to research on the customer behaviors before submitting a loan application, we constructed our own state-of-art architecture with reference to the traditional transformer model.
 
